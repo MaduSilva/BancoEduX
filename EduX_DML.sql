@@ -4,58 +4,67 @@ DML - Data Manipulation Language
 USE EduX;
 
 -- Inserindo valores a tabela Instituicao
-INSERT INTO Instituicao (Nome, Logradouro, Numero, Bairro, Cidade, Complemento, CEP, UF) VALUES
-	('SENAI de Informatica', 'Alameda Barão de Limeira', '539', 'Santa Cecilia', 'São Paulo', '', '01202001', 'SP');
+INSERT INTO Instituicao (IdInstituicao ,Nome, Logradouro, Numero, Bairro, Cidade, Complemento, CEP, UF) VALUES
+	(NEWID(), 'SENAI de Informatica', 'Alameda Barão de Limeira', '539', 'Santa Cecilia', 'São Paulo', '', '01202001', 'SP');
 
 -- Inserindo valores a tabela Curso
-INSERT INTO Curso (Titulo, IdInstituicao) VALUES
-	('Multímidia', '4E2869E9-7FD2-40E7-9972-A3DFCD156DC2')
+INSERT INTO Curso (IdCurso, Titulo, IdInstituicao) VALUES
+	(NEWID(),'Multímidia', '8D4B9D7D-5655-438C-A9A8-3E78D1C1A5DB')
 	
 -- Inserindo valores a tabela Turma
-INSERT INTO Turma (Descricao, IdCurso) VALUES
-	('2S2020S3', '1401D407-FD66-46EC-874C-40E8084FD353');
+INSERT INTO Turma (IdTurma, Descricao, IdCurso) VALUES
+	(NEWID(), '2S2020S3', '2D7B901F-DD0A-4AD3-9CF7-13FBB4B8B100');
 
 -- Inserindo valores a tabela Categoria
-INSERT INTO Categoria (Tipo) VALUES
-	('Critico'),
-	('Desejavel'),
-	('Oculto');
+INSERT INTO Categoria (IdCategoria, Tipo) VALUES
+	(NEWID(), 'Critico'),
+	(NEWID(), 'Desejavel'),
+	(NEWID(), 'Oculto');
 
 -- Inserindo valores a tabela Objetivo
-INSERT INTO Objetivo (Descricao, IdCategoria) VALUES
-	('Identificar as características de banco de dados relacionais e não-relacionais', '15E408A7-0081-40C1-BE91-68D564EAA5A4');
+INSERT INTO Objetivo (IdObjetivo, Descricao, IdCategoria) VALUES
+	(NEWID(), 'Identificar as características de banco de dados relacionais e não-relacionais', '3F67FE43-59E0-4B7D-84F1-AF1F5AA184E9');
 
 -- Inserindo valores a tabela Perfil
-INSERT INTO Perfil (Permissao) VALUES
-	('Admin'),
-	('Padrao');
+INSERT INTO Perfil (IdPerfil, Permissao) VALUES
+	(NEWID(), 'Admin'),
+	(NEWID(), 'Padrao');
 	
 -- Inserindo valores a tabela Usuario
-INSERT INTO Usuario (Nome, Email, Senha, Pontuacao, DataCadastro, DataUltimoAcesso, IdPerfil) VALUES
-    ('Gustavo Carvalho', 'Gustavo@Email.com', '19042003', '180', '2020-09-23T12:00:00', '2020-09-24T00:00:00', 'AE8D4667-3C1D-42D0-9B24-4E6D01F78D6A');
+-- Criando Usuario Admin
+INSERT INTO Usuario (IdUsuario, Nome, Email, Senha, Pontuacao, DataCadastro, DataUltimoAcesso, IdPerfil) VALUES
+    (NEWID(), 'Gustavo Carvalho', 'Gustavo@Email.com', '19042003', '100', GETDATE(), GETDATE(), 'BB4B7577-C59F-4F92-ABAC-59BE6076C4BA');
+
+-- Criando Usuario Padrao
+INSERT INTO Usuario (IdUsuario, Nome, Email, Senha, Pontuacao, DataCadastro, DataUltimoAcesso, IdPerfil) VALUES
+    (NEWID(), 'Maria Eduarda', 'Maria@Email.com', '19042003', '80', GETDATE(), GETDATE(), '9611524C-7422-4FBE-8B7A-42AD37FA9E7D');
+
 
 -- Inserindo valores a tabela AlunoTurma
-INSERT INTO AlunoTurma (Matricula, IdUsuario, IdTurma) VALUES
-	('48941897', '9237BB6C-B1B6-44E9-BA00-3E0EF19AFA6F', '33C7BCBA-0ED0-4ABC-AF6F-BF5C531CDF81');
+INSERT INTO AlunoTurma (IdAlunoTurma, Matricula, IdUsuario, IdTurma) VALUES
+	(NEWID(), '48941897', 'E4D3AA70-2974-4295-B1D7-AACC68F7AD73', 'ECB8B8FE-49E0-42C3-856E-53F200BEAF8D');
 
 -- Inserindo valores a tabela ObjetivoAluno
-INSERT INTO ObjetivoAluno(Nota, DataAlcancado, IdAlunoTurma, IdObjetivo)
-VALUES ('10', '2020-09-12T12:00:00', '6B4E9FD5-8E00-4319-A5F0-9839FEC5EDE0', '8C4C469E-0B31-4914-91D9-3BCB8D937CDF');
+INSERT INTO ObjetivoAluno(IdObjetivoAluno, Nota, DataAlcancado, IdAlunoTurma, IdObjetivo)
+VALUES (NEWID(),'100', GETDATE(), '84193C70-0F1D-4B12-999F-81108C2FEC71', '8FEE7967-267B-4FF4-AA77-5F7602BA09D2');
 
 -- Inserindo valores a tabela ProfessorTurma
-INSERT INTO ProfessorTurma (Descricao, IdUsuario, IdTurma) VALUES
-	('Professor responsável pela turma A', '9237BB6C-B1B6-44E9-BA00-3E0EF19AFA6F', '33C7BCBA-0ED0-4ABC-AF6F-BF5C531CDF81');
+INSERT INTO ProfessorTurma (IdProfessorUsuario ,Descricao, IdUsuario, IdTurma) VALUES
+	(NEWID(),'Professor responsável pela turma A', 'BEE78295-A683-43BF-BC9E-2F8A69C53603', 'ECB8B8FE-49E0-42C3-856E-53F200BEAF8D');
 
 -- Inserindo valores a tabela Dica
-INSERT INTO Dica(Texto, Imagem, IdUsuario)
-VALUES ('Texto da Dica', 'DicaImagem.png', '9237BB6C-B1B6-44E9-BA00-3E0EF19AFA6F');
-
--- Inserindo valores a tabela Postagem
-INSERT INTO Postagem(Texto, Imagem, IdUsuario)
-VALUES ('Texto da Postagem', 'PostagemImagem.png', '9237BB6C-B1B6-44E9-BA00-3E0EF19AFA6F');
+INSERT INTO Dica(IdDica, Titulo, Texto, Imagem, IdUsuario)
+VALUES (NEWID(),'Titulo da Dica', 'Texto da Dica', 'DicaImagem.png', 'E4D3AA70-2974-4295-B1D7-AACC68F7AD73');
 
 -- Inserindo valores a tabela Curtida
-INSERT INTO Curtida(IdUsuario, IdDica)
-VALUES ('9237BB6C-B1B6-44E9-BA00-3E0EF19AFA6F', 'F0A62FDC-8B09-4116-BD15-DE9BC5894B1A');
+INSERT INTO Curtida(IdCurtida, Numero)
+VALUES (NEWID(), '');
 
+
+-- Inserindo valores a tabela Postagem
+INSERT INTO Postagem(IdPostagem, Titulo, Texto, Imagem, IdUsuario, IdCurtida)
+VALUES (NEWID(), 'Titulo da Postagem','Texto da Postagem', 'PostagemImagem.png', 'E4D3AA70-2974-4295-B1D7-AACC68F7AD73', '46E610CF-BD83-4604-84DF-A632993E8099');
+
+INSERT INTO Ranking(IdRanking, Posicao, QuantidadeTotal, Descricao, IdUsuario)
+VALUES (NEWID(), '3', '', 'Descrição do Ranking', 'E4D3AA70-2974-4295-B1D7-AACC68F7AD73')
 
